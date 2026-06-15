@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - name: Checkout target repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Sync Upstream
-        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        uses: aormsby/Fork-Sync-With-Upstream-action@v4
         with:
           target_repo_token: ${{ secrets.GITHUB_TOKEN }}
           # 这里改成 TrollVNC 的原仓库地址

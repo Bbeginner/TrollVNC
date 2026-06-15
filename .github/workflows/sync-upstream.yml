@@ -1,0 +1,31 @@
+name: Sync TrollVNC Upstream
+
+permissions:
+  contents: write
+
+on:
+  schedule:
+    # 每天 UTC 时间 0 点执行（北京时间早上 8 点）
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  sync_with_upstream:
+    name: Sync with upstream TrollVNC
+    runs-on: ubuntu-latest
+    # 只在 fork 的仓库中执行，避免误操作
+    if: ${{ github.event.repository.fork }}
+
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v3
+
+      - name: Sync Upstream
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          # 这里改成 TrollVNC 的原仓库地址
+          upstream_sync_repo: OwnGoalStudio/TrollVNC
+          upstream_sync_branch: main
+          target_sync_branch: main
+          test_mode: false
